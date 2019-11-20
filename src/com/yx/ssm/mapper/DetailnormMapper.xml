@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yx.ssm.mapper.DetailnormMapper" >
+
+    <resultMap id="BaseResultMap" type="com.yx.ssm.po.Detailnorm" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="firstnormid" property="firstnormid" jdbcType="INTEGER" />
+        <result column="secondnormid" property="secondnormid" jdbcType="INTEGER" />
+        <result column="normid" property="normid" jdbcType="VARCHAR" />
+        <result column="normname" property="normname" jdbcType="VARCHAR" />
+        <result column="normdescription" property="normdescription" jdbcType="LONGVARCHAR" />
+        <result column="normformula" property="normformula" jdbcType="LONGVARCHAR" />
+        <result column="computingcycle" property="computingcycle" jdbcType="REAL" />
+        <result column="cycleunit" property="cycleunit" jdbcType="VARCHAR" />
+        <result column="departmentid" property="departmentid" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+        <result column="abatetime" property="abatetime" jdbcType="TIMESTAMP" />
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List" >
+        id, firstnormid, secondnormid, normid, normname, normdescription, normformula, computingcycle, 
+        cycleunit, departmentid, remark, abatetime, createtime
+    </sql>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yx.ssm.po.DetailnormExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from detailnorm
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select 
+        <include refid="Base_Column_List" />
+        from detailnorm
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from detailnorm
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.yx.ssm.po.DetailnormExample" >
+        delete from detailnorm
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.yx.ssm.po.Detailnorm" >
+        insert into detailnorm (id, firstnormid, secondnormid, 
+            normid, normname, normdescription, 
+            normformula, computingcycle, cycleunit, 
+            departmentid, remark, abatetime, 
+            createtime)
+        values (#{id,jdbcType=INTEGER}, #{firstnormid,jdbcType=INTEGER}, #{secondnormid,jdbcType=INTEGER}, 
+            #{normid,jdbcType=VARCHAR}, #{normname,jdbcType=VARCHAR}, #{normdescription,jdbcType=LONGVARCHAR}, 
+            #{normformula,jdbcType=LONGVARCHAR}, #{computingcycle,jdbcType=REAL}, #{cycleunit,jdbcType=VARCHAR}, 
+            #{departmentid,jdbcType=INTEGER}, #{remark,jdbcType=LONGVARCHAR}, #{abatetime,jdbcType=TIMESTAMP}, 
+            #{createtime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.yx.ssm.po.Detailnorm" >
+        insert into detailnorm
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="firstnormid != null" >
+                firstnormid,
+            </if>
+            <if test="secondnormid != null" >
+                secondnormid,
+            </if>
+            <if test="normid != null" >
+                normid,
+            </if>
+            <if test="normname != null" >
+                normname,
+            </if>
+            <if test="normdescription != null" >
+                normdescription,
+            </if>
+            <if test="normformula != null" >
+                normformula,
+            </if>
+            <if test="computingcycle != null" >
+                computingcycle,
+            </if>
+            <if test="cycleunit != null" >
+                cycleunit,
+            </if>
+            <if test="departmentid != null" >
+                departmentid,
+            </if>
+            <if test="remark != null" >
+                remark,
+            </if>
+            <if test="abatetime != null" >
+                abatetime,
+            </if>
+            <if test="createtime != null" >
+                createtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="firstnormid != null" >
+                #{firstnormid,jdbcType=INTEGER},
+            </if>
+            <if test="secondnormid != null" >
+                #{secondnormid,jdbcType=INTEGER},
+            </if>
+            <if test="normid != null" >
+                #{normid,jdbcType=VARCHAR},
+            </if>
+            <if test="normname != null" >
+                #{normname,jdbcType=VARCHAR},
+            </if>
+            <if test="normdescription != null" >
+                #{normdescription,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="normformula != null" >
+                #{normformula,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="computingcycle != null" >
+                #{computingcycle,jdbcType=REAL},
+            </if>
+            <if test="cycleunit != null" >
+                #{cycleunit,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentid != null" >
+                #{departmentid,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null" >
+                #{remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="abatetime != null" >
+                #{abatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createtime != null" >
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.yx.ssm.po.DetailnormExample" resultType="java.lang.Integer" >
+        select count(*) from detailnorm
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map" >
+        update detailnorm
+        <set >
+            <if test="record.id != null" >
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.firstnormid != null" >
+                firstnormid = #{record.firstnormid,jdbcType=INTEGER},
+            </if>
+            <if test="record.secondnormid != null" >
+                secondnormid = #{record.secondnormid,jdbcType=INTEGER},
+            </if>
+            <if test="record.normid != null" >
+                normid = #{record.normid,jdbcType=VARCHAR},
+            </if>
+            <if test="record.normname != null" >
+                normname = #{record.normname,jdbcType=VARCHAR},
+            </if>
+            <if test="record.normdescription != null" >
+                normdescription = #{record.normdescription,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.normformula != null" >
+                normformula = #{record.normformula,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.computingcycle != null" >
+                computingcycle = #{record.computingcycle,jdbcType=REAL},
+            </if>
+            <if test="record.cycleunit != null" >
+                cycleunit = #{record.cycleunit,jdbcType=VARCHAR},
+            </if>
+            <if test="record.departmentid != null" >
+                departmentid = #{record.departmentid,jdbcType=INTEGER},
+            </if>
+            <if test="record.remark != null" >
+                remark = #{record.remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="record.abatetime != null" >
+                abatetime = #{record.abatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.createtime != null" >
+                createtime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByExample" parameterType="map" >
+        update detailnorm
+        set id = #{record.id,jdbcType=INTEGER},
+            firstnormid = #{record.firstnormid,jdbcType=INTEGER},
+            secondnormid = #{record.secondnormid,jdbcType=INTEGER},
+            normid = #{record.normid,jdbcType=VARCHAR},
+            normname = #{record.normname,jdbcType=VARCHAR},
+            normdescription = #{record.normdescription,jdbcType=LONGVARCHAR},
+            normformula = #{record.normformula,jdbcType=LONGVARCHAR},
+            computingcycle = #{record.computingcycle,jdbcType=REAL},
+            cycleunit = #{record.cycleunit,jdbcType=VARCHAR},
+            departmentid = #{record.departmentid,jdbcType=INTEGER},
+            remark = #{record.remark,jdbcType=LONGVARCHAR},
+            abatetime = #{record.abatetime,jdbcType=TIMESTAMP},
+            createtime = #{record.createtime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.yx.ssm.po.Detailnorm" >
+        update detailnorm
+        <set >
+            <if test="firstnormid != null" >
+                firstnormid = #{firstnormid,jdbcType=INTEGER},
+            </if>
+            <if test="secondnormid != null" >
+                secondnormid = #{secondnormid,jdbcType=INTEGER},
+            </if>
+            <if test="normid != null" >
+                normid = #{normid,jdbcType=VARCHAR},
+            </if>
+            <if test="normname != null" >
+                normname = #{normname,jdbcType=VARCHAR},
+            </if>
+            <if test="normdescription != null" >
+                normdescription = #{normdescription,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="normformula != null" >
+                normformula = #{normformula,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="computingcycle != null" >
+                computingcycle = #{computingcycle,jdbcType=REAL},
+            </if>
+            <if test="cycleunit != null" >
+                cycleunit = #{cycleunit,jdbcType=VARCHAR},
+            </if>
+            <if test="departmentid != null" >
+                departmentid = #{departmentid,jdbcType=INTEGER},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="abatetime != null" >
+                abatetime = #{abatetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createtime != null" >
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.yx.ssm.po.Detailnorm" >
+        update detailnorm
+        set firstnormid = #{firstnormid,jdbcType=INTEGER},
+            secondnormid = #{secondnormid,jdbcType=INTEGER},
+            normid = #{normid,jdbcType=VARCHAR},
+            normname = #{normname,jdbcType=VARCHAR},
+            normdescription = #{normdescription,jdbcType=LONGVARCHAR},
+            normformula = #{normformula,jdbcType=LONGVARCHAR},
+            computingcycle = #{computingcycle,jdbcType=REAL},
+            cycleunit = #{cycleunit,jdbcType=VARCHAR},
+            departmentid = #{departmentid,jdbcType=INTEGER},
+            remark = #{remark,jdbcType=LONGVARCHAR},
+            abatetime = #{abatetime,jdbcType=TIMESTAMP},
+            createtime = #{createtime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
