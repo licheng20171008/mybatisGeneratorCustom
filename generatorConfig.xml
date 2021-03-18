@@ -10,8 +10,8 @@
 			<property name="suppressAllComments" value="false" />
 		</commentGenerator>
 		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
-		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/indexlibrary" userId="root"
+		<jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/yxdc?serverTimezone=UTC" userId="root"
 			password="root">
 		</jdbcConnection>
 		<!-- <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
@@ -23,11 +23,11 @@
 		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 
 			NUMERIC 类型解析为java.math.BigDecimal -->
 		<javaTypeResolver>
-			<property name="forceBigDecimals" value="false" />
+			<property name="forceBigDecimals" value="true" />
 		</javaTypeResolver>
 
 		<!-- targetProject:生成PO类的位置 -->
-		<javaModelGenerator targetPackage="com.yx.ssm.po"
+		<javaModelGenerator targetPackage="com.yx.po"
 			targetProject=".\src">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
@@ -35,28 +35,31 @@
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
         <!-- targetProject:mapper映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="com.yx.ssm.mapper" 
+		<sqlMapGenerator targetPackage="com.yx.mapper" 
 			targetProject=".\src">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</sqlMapGenerator>
 		<!-- targetPackage：mapper接口生成的位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.yx.ssm.mapper" 
+			targetPackage="com.yx.mapper" 
 			targetProject=".\src">
 			<!-- enableSubPackages:是否让schema作为包的后缀 -->
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		
 		<!-- 指定数据库表 -->
-		<table tableName="firstnorm" />
+		<table tableName="category" />
 		<table tableName="department" />
-		<table tableName="detailnorm" />
-		<table tableName="secondnorm" />
+		<table tableName="indexdetail" />
+		<table tableName="type" />
+		<table tableName="testcolum" />
 		
-		<!-- 有些表的字段需要指定java类型
-		 <table schema="" tableName="">
-			<columnOverride column="" javaType="" />
-		</table> -->
+		<!-- 有些表的字段需要指定java类型 -->
+		 <table schema="yxdc" tableName="testcolum">
+			<columnOverride column="t13" javaType="java.sql.Timestamp" />
+			<columnOverride column="t14" javaType="java.sql.Time" />
+			<columnOverride column="t15" javaType="java.sql.Timestamp" />
+		</table>
 	</context>
 </generatorConfiguration>
